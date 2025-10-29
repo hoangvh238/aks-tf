@@ -24,7 +24,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     #type                         = "VirtualMachineScaleSets"
     node_count                   = 1
     vm_size                      = "Standard_D2_v2"
-    zones                        = [1, 2, 3]
+    zones                        = var.enable_zones ? [1, 2, 3] : null
     vnet_subnet_id               = var.az_subnet_id
     only_critical_addons_enabled = true
 
@@ -58,7 +58,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "k8s-worker" {
   max_count             = each.value.max_count
   enable_auto_scaling   = each.value.enable_auto_scaling
   enable_node_public_ip = each.value.enable_node_public_ip
-  zones                 = each.value.zones
+  zones                 = var.enable_zones ? each.value.zones : null
   vnet_subnet_id        = var.az_subnet_id
   tags                  = each.value.tags
 

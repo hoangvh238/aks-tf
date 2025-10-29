@@ -1,3 +1,9 @@
+variable "enable_zones" {
+  type        = bool
+  description = "Enable availability zones for the cluster. Set to false for regions that don't support zones."
+  default     = false
+}
+
 variable "cluster_name" {
   type        = string
   description = "aks cluster name"
