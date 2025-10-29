@@ -26,6 +26,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     vm_size                      = "standard_b2s_v2"
     vnet_subnet_id               = var.az_subnet_id
     only_critical_addons_enabled = true
+    temporary_name_for_rotation  = "systemtemp"
 
     node_labels = {
       "worker-name" = "system"
