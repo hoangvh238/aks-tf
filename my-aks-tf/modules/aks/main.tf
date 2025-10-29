@@ -23,7 +23,8 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     name                         = "system"
     #type                         = "VirtualMachineScaleSets"
     node_count                   = 1
-    vm_size                      = "Standard_A2_v2"
+    vm_size                      = "Standard_B1s"
+    enable_auto_scaling          = false
     vnet_subnet_id               = var.az_subnet_id
     only_critical_addons_enabled = true
 
