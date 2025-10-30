@@ -12,7 +12,7 @@ variable "cluster_name" {
 variable "k8s_version" {
   type        = string
   description = "kubernetes version"
-  default     = "1.30.5"
+  default     = "1.26.6"
 }
 
 variable "region" {
@@ -51,27 +51,19 @@ variable "aks_tags" {
 variable "nodepools" {
   description = "Nodepools for the Kubernetes cluster"
   type = map(object({
-    name                  = string
-    zones                 = list(number)
-    vm_size               = string
-    min_count             = number
-    max_count             = number
-    enable_auto_scaling   = bool
-    enable_node_public_ip = bool
-    tags                  = map(string)
-    node_labels           = map(string)
+    name        = string
+    vm_size     = string
+    node_count  = number
+    tags        = map(string)
+    node_labels = map(string)
   }))
   default = {
     worker = {
-      name                  = "worker"
-      zones                 = [1, 2, 3]
-      vm_size               = "standard_b2s_v2"
-      min_count             = 1
-      max_count             = 2 
-      enable_auto_scaling   = true
-      enable_node_public_ip = true
-      tags                  = { worker_name = "worker" }
-      node_labels           = { "worker-name" = "worker" }
+      name        = "worker"
+      vm_size     = "Standard_B2s"  # Smallest VM size that supports AKS
+      node_count  = 1
+      tags        = { worker_name = "worker" }
+      node_labels = { "worker-name" = "worker" }
     }
   }
 }

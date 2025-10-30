@@ -21,16 +21,10 @@ resource "azurerm_kubernetes_cluster" "k8s" {
 
   default_node_pool {
     name                         = "system"
-    #type                         = "VirtualMachineScaleSets"
     node_count                   = 1
-    vm_size                      = "standard_b2s_v2"
+    vm_size                      = "Standard_B2s"  # Smallest VM size that supports AKS
     vnet_subnet_id               = var.az_subnet_id
-    only_critical_addons_enabled = true
-    temporary_name_for_rotation  = "systemtemp"
-
-    node_labels = {
-      "worker-name" = "system"
-    }
+    only_critical_addons_enabled = true  # This helps reduce resource usage
   }
 
   identity {
@@ -53,13 +47,10 @@ resource "azurerm_kubernetes_cluster_node_pool" "k8s-worker" {
 
   name                  = each.value.name
   kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
-  vm_size               = each.value.vm_size
-  min_count             = each.value.min_count
-  max_count             = each.value.max_count
-  enable_auto_scaling   = each.value.enable_auto_scaling
-  enable_node_public_ip = each.value.enable_node_public_ip
-  vnet_subnet_id        = var.az_subnet_id
-  tags                  = each.value.tags
+  vm_size              = each.value.vm_size
+  node_count           = each.value.node_count
+  vnet_subnet_id       = var.az_subnet_id
+  tags                 = each.value.tags
 
   node_labels = each.value.node_labels
 }
