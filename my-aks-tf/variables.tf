@@ -12,5 +12,5 @@ variable "cluster_name" {
 variable "k8s_version" {
   type        = string
   description = "k8s version"
-  default     = "1.30.5"
+  default     = "1.28.3"
 }
