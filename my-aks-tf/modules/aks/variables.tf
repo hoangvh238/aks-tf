@@ -65,7 +65,7 @@ variable "nodepools" {
     worker = {
       name                  = "worker"
       zones                 = [1, 2, 3]
-      vm_size               = "Standard_D2_v2"
+      vm_size               = "Standard_B2s"
       min_count             = 1
       max_count             = 2 
       enable_auto_scaling   = true
