@@ -6,7 +6,7 @@ variable "cluster_name" {
 variable "k8s_version" {
   type        = string
   description = "kubernetes version"
-  default     = "1.28.3"
+  default     = "1.34.0"
 }
 
 variable "region" {
@@ -37,9 +37,9 @@ variable "nodepools" {
     worker = {
       name                  = "worker"
       zones                 = [1, 2, 3]
-      vm_size               = "Standard_D2_v2"
+      vm_size               = "Standard_B2s"
       min_count             = 1
-      max_count             = 100
+      max_count             = 1
       enable_auto_scaling   = true
       enable_node_public_ip = true
       tags                  = { worker_name = "worker" }
